@@ -1,0 +1,114 @@
+/* 기본 요소 -> tag{ }
+*  class -> .class{ }
+*  id -> #id{ }
+*/
+
+body{
+    margin: 0px;
+    background-color: #141517;
+}
+
+p{
+    margin:0px;
+    color: white;
+}
+
+button{
+    background-color: #00C853;
+    border: none;
+}
+
+button:hover{
+    background-color: #004D40;
+}
+
+.p_name{
+    font-size: 15px;
+    width: 150px;
+}
+
+.p_warn{
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    font-size: 12px;
+    color: #ff0055;
+}
+
+.widget_container{
+    margin: 0px;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.input_text{
+    width: 500px;
+    height: 20px;
+    background-color: #424242;
+    color:white;
+    border-color: white;
+    border-width: 1px;
+    outline: none; /* js 제어 요소 */
+}
+.input_text:focus{
+    background-color: #141517; /*body와 같은 색*/
+}
+
+#group1{
+    width: max-content;
+    height: max-content;
+    position: relative;
+    margin: 10px;
+}
+
+#last_widget_container{
+    margin-bottom: 0px;
+}
+
+#version_info{
+    width: 200px;
+    position: absolute;
+    top: 30px;
+    right: 0px;
+}
+
+#gen_option{
+    position: absolute;
+    top: 200px;
+    right: 50px;
+    color:white;
+}
+
+#btn_gen{
+    width: 70px;
+    height: 30px;
+    position: absolute;
+    bottom: 30px;
+    right: 50px;
+}
+
+#btn_path_select{
+    position:absolute;
+    top:85px;
+    right:-30px;
+    height: 24px;
+}
+
+#layout_gen{
+    position: fixed;
+    top: 0px;
+    left: 0px;
+
+    width: 0%;
+    height: 0%;
+    background-color: rgba(0, 0, 0, 1);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#span_gen{
+    font-size: 100px;
+    color: white;
+}
