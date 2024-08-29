@@ -7,77 +7,77 @@
     <script defer src="./renderer.js"></script>
 </head>
 <body>
-    <div id="group1">
-        <div class="widget_container">
+    <div id="div_group">
+        <div class="div_container">
             <p class="p_name">프로젝트 이름</p>
             <input type="text" class="input_text" id="input_proj_name">
             <p class="p_warn" id="p_warn_name"></p>
         </div>
 
-        <div class="widget_container">
+        <div class="div_container">
             <p class="p_name">경로</p>
             <input type="text" class="input_text" id="input_proj_path" value="" readonly>
             <p class="p_warn" id="p_warn_path"></p>
         </div>
         <button id="btn_path_select">...</button>
 
-        <div class="widget_container">
+        <div class="div_container">
             <p class="p_name">main</p>
             <input type="text" class="input_text" id="input_main_name" placeholder="main.js">
             <p class="p_warn" id="p_warn_main"></p>
         </div>
 
-        <div class="widget_container">
+        <div class="div_container">
             <p class="p_name">preload</p>
             <input type="text" class="input_text" id="input_preload_name" placeholder="preload.js">
             <p class="p_warn" id="p_warn_preload"></p>
         </div>
 
-        <div class="widget_container">
+        <div class="div_container">
             <p class="p_name">html</p>
             <input type="text" class="input_text" id="input_html_name" placeholder="index.html">
             <p class="p_warn" id="p_warn_html"></p>
         </div>
 
-        <div class="widget_container">
+        <div class="div_container">
             <p class="p_name">css</p>
             <input type="text" class="input_text" id="input_css_name" placeholder="style.css">
             <p class="p_warn" id="p_warn_css"></p>
         </div>
 
-        <div class="widget_container" id="last_widget_container">
+        <div class="div_container" id="div_last_container">
             <p class="p_name">javascript</p>
             <input type="text" class="input_text" id="input_js_name" placeholder="renderer.js">
             <p class="p_warn" id="p_warn_js"></p>
         </div>
     </div>
     <div id="div_etc">
-        <div id="version_info">
+        <div id="div_info">
             <p>사용할 버전</p>
             <p>
-                electron: <span id="electron_version"></span>
+                electron: <span id="span_elec_ver"></span>
             </p>
         </div>
         <form action="">
-            <div id="gen_option">
-                <p>프로젝트 타입</p>
-                <label for="empty"><input type="radio" value="1" checked="" name="radio1" id="empty">빈 프로젝트</label>
+            <div id="div_option">
+                <p>프로젝트 시작 유형</p>
+                <label for="input_empty"><input type="radio" value="1" checked="" name="radio1" id="input_empty">빈 프로젝트</label>
                 <br>
-                <label for="hello"><input type="radio" value="2" name="radio1" id="hello">hello electron</label>
+                <label for="input_hello"><input type="radio" value="2" name="radio1" id="input_hello">hello electron</label>
             </div>
         </form>
 
         <form action="">
-            <div id="build_tool">
+            <div id="div_build">
                 <p>빌드 도구</p>
-                <label for="none"><input type="radio" value="1" checked="" name="radio2" id=none>없음</label>
+                <label for="input_none"><input type="radio" value="1" checked="" name="radio2" id="input_none">없음</label>
                 <br>
-                <label for="forge"><input type="radio" value="2" name="radio2" id="forge">electron forge</label>
+                <label for="input_forge"><input type="radio" value="2" name="radio2" id="input_forge">electron forge</label>
             </div>
         </form>
     </div>
     <button id="btn_gen">생성</button>
-    <div id="layout_gen">
+    <div id="div_layout">
         <span id="span_gen"></span>
     </div>
 </body>

@@ -16,7 +16,7 @@ const p_warn_prelaod = document.getElementById('p_warn_preload');
 const p_warn_html = document.getElementById('p_warn_html');
 const p_warn_css = document.getElementById('p_warn_css');
 const p_warn_js = document.getElementById('p_warn_js');
-const layout_gen = document.getElementById("layout_gen");
+const div_layout = document.getElementById("div_layout");
 const span_gen = document.getElementById("span_gen");
 
 const warn_text = "비어있거나 잘못된 이름";
@@ -162,16 +162,16 @@ btn_gen.addEventListener('click', function () {
         arr[8] = "forge";
     }
 
-    layout_gen.style.width = "100%";
-    layout_gen.style.height = "100%";
+    div_layout.style.width = "100%";
+    div_layout.style.height = "100%";
     span_gen.innerText = "생성중";
 
     ipcRenderer.send("file-info", arr);
 })
 
 ipcRenderer.on("finish", (event, args) => {
-    layout_gen.style.width = "0%";
-    layout_gen.style.height = "0%";
+    div_layout.style.width = "0%";
+    div_layout.style.height = "0%";
     span_gen.innerText = "";
     if(args == "overlap"){
         //alert 이후에 제대로 동작안하는 이유는?
@@ -181,5 +181,5 @@ ipcRenderer.on("finish", (event, args) => {
 })
 
 ipcRenderer.on('electron-version', (event, data) => {
-    document.getElementById("electron_version").innerText = data;
+    document.getElementById("span_elec_ver").innerText = data;
 })

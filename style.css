@@ -35,7 +35,7 @@ button:hover{
     color: #ff0055;
 }
 
-.widget_container{
+.div_container{
     margin: 0px;
     margin-bottom: 20px;
     position: relative;
@@ -54,14 +54,14 @@ button:hover{
     background-color: #141517; /*body와 같은 색*/
 }
 
-#group1{
+#div_group{
     width: max-content;
     height: max-content;
     position: relative;
     margin: 10px;
 }
 
-#last_widget_container{
+#div_last_container{
     margin-bottom: 0px;
 }
 
@@ -71,17 +71,12 @@ button:hover{
     right: 0px;
 }
 
-#version_info{
+#div_info{
     width: 200px;
     margin-bottom: 30px;
 }
 
-#gen_option{
-    color:white;
-    margin-bottom: 30px;
-}
-
-#build_tool{
+#div_option, #div_build{
     color:white;
     margin-bottom: 30px;
 }
@@ -101,7 +96,7 @@ button:hover{
     height: 24px;
 }
 
-#layout_gen{
+#div_layout{
     position: fixed;
     top: 0px;
     left: 0px;
