@@ -51,21 +51,31 @@
             <p class="p_warn" id="p_warn_js"></p>
         </div>
     </div>
-    <div id="version_info">
-        <p>version</p>
-        <p>
-            chrome: <span id="chrome_version"></span><br>
-            node.js: <span id="node_version"></span><br>
-            electron: <span id="electron_version"></span>
-        </p>
-    </div>
-    <form action="">
-        <div id="gen_option">
-            <label for="empty"><input type="radio" value="1" checked="" name="radio1" id="empty">빈 프로젝트</label>
-            <br>
-            <label for="hello"><input type="radio" value="2" name="radio1" id="hello">hello electron</label>
+    <div id="div_etc">
+        <div id="version_info">
+            <p>사용할 버전</p>
+            <p>
+                electron: <span id="electron_version"></span>
+            </p>
         </div>
-    </form>
+        <form action="">
+            <div id="gen_option">
+                <p>프로젝트 타입</p>
+                <label for="empty"><input type="radio" value="1" checked="" name="radio1" id="empty">빈 프로젝트</label>
+                <br>
+                <label for="hello"><input type="radio" value="2" name="radio1" id="hello">hello electron</label>
+            </div>
+        </form>
+
+        <form action="">
+            <div id="build_tool">
+                <p>빌드 도구</p>
+                <label for="none"><input type="radio" value="1" checked="" name="radio2" id=none>없음</label>
+                <br>
+                <label for="forge"><input type="radio" value="2" name="radio2" id="forge">electron forge</label>
+            </div>
+        </form>
+    </div>
     <button id="btn_gen">생성</button>
     <div id="layout_gen">
         <span id="span_gen"></span>

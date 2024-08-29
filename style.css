@@ -65,18 +65,25 @@ button:hover{
     margin-bottom: 0px;
 }
 
-#version_info{
-    width: 200px;
+#div_etc{
     position: absolute;
-    top: 30px;
+    top: 50px;
     right: 0px;
 }
 
+#version_info{
+    width: 200px;
+    margin-bottom: 30px;
+}
+
 #gen_option{
-    position: absolute;
-    top: 200px;
-    right: 50px;
     color:white;
+    margin-bottom: 30px;
+}
+
+#build_tool{
+    color:white;
+    margin-bottom: 30px;
 }
 
 #btn_gen{

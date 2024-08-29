@@ -1,6 +1,6 @@
 const path = require('path');
 const fs = require("fs");
-const {execSync} = require('child_process')
+const {execSync, exec} = require('child_process')
 const process = require('process');
 
 const { app, BrowserWindow, ipcMain, dialog } = require('electron');
@@ -18,15 +18,24 @@ function createWindow() {
       preload: path.join(__dirname, 'preload.js')
     },
     autoHideMenuBar: true,
-    //resizable: false
+    resizable: false
   });
 
+  //단축키 설정 - F12 개발자도구 활성화
   electron_local_shortcut.register(win, 'F12', () => {
     console.log("Developement mode is enable")
     win.webContents.toggleDevTools()
   })
 
   win.loadFile('index.html');
+
+  //search electron latest version
+  let stdout = execSync('npm show electron version');
+  let result =stdout.toString();
+  console.log("electron version = ", result)
+  win.webContents.on('did-finish-load', ()=>{
+    win.webContents.send('electron-version', result);
+  })
 }
 
 app.whenReady().then(createWindow);
@@ -64,6 +73,7 @@ ipcMain.on("file-info",(event, args) => {
 
   directory = args[1]+"\\"+args[0];
 
+  console.log("\nmake directory");
   try {
     fs.mkdirSync(directory);
   } catch (error) {
@@ -77,10 +87,12 @@ ipcMain.on("file-info",(event, args) => {
 
   // 콘솔의 작업 경로를 변경하기 위함
   process.chdir(directory);
-  console.log("work directory: " + process.cwd());
+  console.log("current work directory: " + process.cwd());
 
-  let stdout = execSync("npm init -y");
-  console.log(stdout.toString());
+  //create package.json
+  console.log("create npm package.json");
+  execSync("npm init -y");
+  console.log("done");
 
   try {
     f = fs.readFileSync(`${directory}\\package.json`);
@@ -90,14 +102,21 @@ ipcMain.on("file-info",(event, args) => {
     return;
   }
 
+  //install electron latest version
+  console.log("install electron latest version")
+  execSync("npm install --save-dev electron");
+  console.log("done");
+
   // package.json 수정
   dict = JSON.parse(f);
   dict.main = "main.js";
   dict.scripts.start = "electron .";
-  fs.writeFileSync(`${directory}\\package.json`, JSON.stringify(dict,null,4));
   console.log("generate package.json");
+  fs.writeFileSync(`${directory}\\package.json`, JSON.stringify(dict,null,4));
+  console.log("done");
 
   // main.js
+  console.log(`generate ${args[2]}`);
   fs.writeFileSync(`${directory}\\${args[2]}`,
    `const { app, BrowserWindow } = require('electron/main')
     const path = require('node:path')
@@ -129,39 +148,44 @@ ipcMain.on("file-info",(event, args) => {
         app.quit()
       }
     })`);
-  console.log(`generate ${args[2]}`);
+  console.log("done");
 
   // style.css
-  fs.writeFileSync(`${directory}\\${args[5]}`,"");
   console.log(`generate ${args[5]}`);
+  fs.writeFileSync(`${directory}\\${args[5]}`,"");
+  console.log("done");
 
   // renderer.js
-  fs.writeFileSync(`${directory}\\${args[6]}`,"");
   console.log(`generate ${args[6]}`);
+  fs.writeFileSync(`${directory}\\${args[6]}`,"");
+  console.log("done");
 
   if(args[7] == "empty"){
     // preload.js
-    fs.writeFileSync(`${directory}\\${args[3]}`,"");
     console.log(`generate ${args[3]}`);
+    fs.writeFileSync(`${directory}\\${args[3]}`,"");
+    console.log("done");
 
     // index.html
+    console.log(`generate ${args[4]}`);
     fs.writeFileSync(`${directory}\\${args[4]}`,`
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
-    <link rel="stylesheet" href="./\${args[5]}">
-    <script defer src="./\${args[6]}"></script>
+    <link rel="stylesheet" href="./${args[5]}">
+    <script defer src="./${args[6]}"></script>
 </head>
 <body>
 
 </body>
 </html>`);
-    console.log(`generate ${args[4]}`);
+    console.log("done");
   }
   else if(args[7] == "hello"){    
     // preload.js
+    console.log(`generate ${args[3]}`);
     fs.writeFileSync(`${directory}\\${args[3]}`,`
 window.addEventListener('DOMContentLoaded', () => {
   const replaceText = (selector, text) => {
@@ -173,8 +197,10 @@ window.addEventListener('DOMContentLoaded', () => {
     replaceText(\`\${type}-version\`, process.versions[type])
   }
 })`);
-    console.log(`generate ${args[3]}`);
+    console.log("done");
+    
     // index.html
+    console.log(`generate ${args[4]}`);
     fs.writeFileSync(`${directory}\\${args[4]}`,`
 <!DOCTYPE html>
 <html>
@@ -192,12 +218,36 @@ window.addEventListener('DOMContentLoaded', () => {
     </p>
 </body>
 </html>`);
-    console.log(`generate ${args[4]}`);
+    console.log("done");
+  }
+
+  if(args[8] == "forge"){
+    try{
+      stdout = execSync("git --version");
+    }
+    catch(err){
+      console.log("require install git");
+      event.reply("finish", "finish");
+      execSync("start .");
+      return;
+    }
+
+    console.log('install forge');
+    execSync("npm install --save-dev @electron-forge/cli");
+    console.log('done');
+
+    console.log("import forge");
+    try{
+      stdout = execSync("npx electron-forge import");
+    }
+    catch(err){
+      console.error(err.message);
+    }
+    console.log("done");
   }
 
   // send response to render process
   event.reply("finish", "finish");
 
-  stdout = execSync("start .");
-  console.log(stdout.toString());
+  execSync("start .");
 });

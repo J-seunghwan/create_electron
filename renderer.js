@@ -146,12 +146,20 @@ btn_gen.addEventListener('click', function () {
         }
     }
 
-    const value = document.querySelector('input[name="radio1"]:checked').value;
-    if(value == 1){
+    const value_type = document.querySelector('input[name="radio1"]:checked').value;
+    if(value_type == 1){
         arr[7] = "empty";
     }
-    else if(value == 2){
+    else if(value_type == 2){
         arr[7] = "hello";
+    }
+
+    const value_build = document.querySelector('input[name="radio2"]:checked').value;
+    if(value_build == 1){
+        arr[8] = "none";
+    }
+    else if(value_build == 2){
+        arr[8] = "forge";
     }
 
     layout_gen.style.width = "100%";
@@ -170,4 +178,8 @@ ipcRenderer.on("finish", (event, args) => {
         input_proj_name.style.borderColor = warn_color;
         p_warn_name.innerText = "중복된 이름";
     }
+})
+
+ipcRenderer.on('electron-version', (event, data) => {
+    document.getElementById("electron_version").innerText = data;
 })
